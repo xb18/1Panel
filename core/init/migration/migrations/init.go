@@ -1314,3 +1314,20 @@ var AddWebsiteTemplateMenu = &gormigrate.Migration{
 		}, "SSL")
 	},
 }
+
+var UpdateFirewallMenuPath = &gormigrate.Migration{
+	ID: "20260819-update-firewall-menu-path",
+	Migrate: func(tx *gorm.DB) error {
+		return helper.UpdateHideMenu(tx, func(menus []dto.ShowMenu) []dto.ShowMenu {
+			for i := range menus {
+				for j := range menus[i].Children {
+					menu := &menus[i].Children[j]
+					if (menu.ID == "74" || menu.Label == "FirewallPort") && menu.Path == "/hosts/firewall/port" {
+						menu.Path = "/hosts/firewall/rules"
+					}
+				}
+			}
+			return menus
+		})
+	},
+}

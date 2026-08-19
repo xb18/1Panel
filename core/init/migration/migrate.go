@@ -53,6 +53,7 @@ func Init() {
 		migrations.AddMenuAccordionSetting,
 		migrations.AddAPITrustedProxiesSetting,
 		migrations.AddWebsiteTemplateMenu,
+		migrations.UpdateFirewallMenuPath,
 	})
 	if err := m.Migrate(); err != nil {
 		global.LOG.Error(err)
